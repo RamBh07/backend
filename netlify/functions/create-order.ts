@@ -6,6 +6,8 @@ const CF_APP_ID = process.env.CASHFREE_APP_ID!;
 const CF_SECRET = process.env.CASHFREE_SECRET!;
 
 export const handler = async (event: any) => {
+  console.log("Incoming event:", event.httpMethod, event.body);
+
   if (event.httpMethod !== "POST") {
     return {
       statusCode: 405,
@@ -14,8 +16,18 @@ export const handler = async (event: any) => {
   }
 
   try {
-    const body = JSON.parse(event.body || "{}");
-    const { orderId, amount, customer } = body;
+    let body: any = {};
+try {
+  body = JSON.parse(event.body || "{}");
+} catch (err) {
+  console.error("Invalid JSON body:", event.body);
+  return {
+    statusCode: 400,
+    body: JSON.stringify({ error: "Invalid JSON input" }),
+  };
+}
+
+const { orderId, amount, customer } = body;
 
     if (!orderId || !amount || !customer) {
       return {
