@@ -17,17 +17,17 @@ export const handler = async (event: any) => {
 
   try {
     let body: any = {};
-try {
-  body = JSON.parse(event.body || "{}");
-} catch (err) {
-  console.error("Invalid JSON body:", event.body);
-  return {
-    statusCode: 400,
-    body: JSON.stringify({ error: "Invalid JSON input" }),
-  };
-}
+    try {
+      body = JSON.parse(event.body || "{}");
+    } catch (err) {
+      console.error("Invalid JSON body:", event.body);
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: "Invalid JSON input" }),
+      };
+    }
 
-const { orderId, amount, customer } = body;
+    const { orderId, amount, customer } = body;
 
     if (!orderId || !amount || !customer) {
       return {
@@ -38,7 +38,7 @@ const { orderId, amount, customer } = body;
 
     const payload = {
       order_id: orderId,
-      order_amount: amount,
+      order_amount:  Number(amount).toFixed(2),
       order_currency: "INR",
       customer_details: {
         customer_id: customer.id,
@@ -46,10 +46,10 @@ const { orderId, amount, customer } = body;
         customer_email: customer.email,
         customer_phone: customer.phone,
       },
-     order_meta: {
-  return_url: "https://gleeful-valkyrie-1d0e09.netlify.app/.netlify/functions/cashfree-return?order_id={order_id}",
-  notify_url: "https://gleeful-valkyrie-1d0e09.netlify.app/.netlify/functions/cashfree-webhook"
-}
+      order_meta: {
+        return_url: "https://gleeful-valkyrie-1d0e09.netlify.app/.netlify/functions/cashfree-return?order_id={order_id}",
+        notify_url: "https://gleeful-valkyrie-1d0e09.netlify.app/.netlify/functions/cashfree-webhook"
+      }
     };
 
     const response = await fetch(`${CF_BASE}/orders`, {
