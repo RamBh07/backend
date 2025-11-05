@@ -34,12 +34,10 @@ export const handler = async (event: any) => {
         customer_email: customer.email,
         customer_phone: customer.phone,
       },
-      order_meta: {
-        return_url:
-          "https://shopymart-backend.netlify.app/.netlify/functions/cashfree-return?order_id={order_id}",
-        notify_url:
-          "https://shopymart-backend.netlify.app/.netlify/functions/cashfree-webhook",
-      },
+     order_meta: {
+  return_url: "https://gleeful-valkyrie-1d0e09.netlify.app/.netlify/functions/cashfree-return?order_id={order_id}",
+  notify_url: "https://gleeful-valkyrie-1d0e09.netlify.app/.netlify/functions/cashfree-webhook"
+}
     };
 
     const response = await fetch(`${CF_BASE}/orders`, {
