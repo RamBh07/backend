@@ -1,0 +1,19 @@
+{
+  "name": "shopymart-backend",
+  "version": "1.0.0",
+  "description": "Cashfree payment backend API for Shopymart (sandbox mode)",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "tsc",
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@vercel/node": "^3.0.6",
+    "typescript": "^5.4.0"
+  }
+}
